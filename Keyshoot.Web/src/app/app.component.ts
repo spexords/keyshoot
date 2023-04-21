@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { TestService } from './test.service';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   text?: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private testService: TestService) {}
 
   ngOnInit(): void {
-    this.http
-      .get('https://localhost:5000/test', { responseType: 'text' })
-      .subscribe((text) => (this.text = text));
+    this.testService.getTestMessage().subscribe((text) => (this.text = text));
   }
 }
