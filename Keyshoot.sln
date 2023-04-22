@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D91F481C-586
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyshoot.Api", "src\Keyshoot.Api\Keyshoot.Api.csproj", "{8EBA13FA-E167-461F-B744-6A4B5F0AF8A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyshoot.Core", "src\Keyshoot.Core\Keyshoot.Core.csproj", "{E43E866F-A343-49D4-9FA9-A7E8501E9696}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyshoot.Infrastructure", "src\Keyshoot.Infrastructure\Keyshoot.Infrastructure.csproj", "{3E5C3B47-8E18-4DEA-ADBD-C98C127A13B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +24,18 @@ Global
 		{8EBA13FA-E167-461F-B744-6A4B5F0AF8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EBA13FA-E167-461F-B744-6A4B5F0AF8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EBA13FA-E167-461F-B744-6A4B5F0AF8A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E43E866F-A343-49D4-9FA9-A7E8501E9696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E43E866F-A343-49D4-9FA9-A7E8501E9696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E43E866F-A343-49D4-9FA9-A7E8501E9696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E43E866F-A343-49D4-9FA9-A7E8501E9696}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E5C3B47-8E18-4DEA-ADBD-C98C127A13B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E5C3B47-8E18-4DEA-ADBD-C98C127A13B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E5C3B47-8E18-4DEA-ADBD-C98C127A13B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E5C3B47-8E18-4DEA-ADBD-C98C127A13B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8EBA13FA-E167-461F-B744-6A4B5F0AF8A1} = {D91F481C-5861-47F1-B11B-C4001D6AA402}
+		{E43E866F-A343-49D4-9FA9-A7E8501E9696} = {D91F481C-5861-47F1-B11B-C4001D6AA402}
+		{3E5C3B47-8E18-4DEA-ADBD-C98C127A13B2} = {D91F481C-5861-47F1-B11B-C4001D6AA402}
 	EndGlobalSection
 EndGlobal
