@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccountService } from 'src/app/features/account/account.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +11,7 @@ import { AccountService } from 'src/app/features/account/account.service';
 export class NavbarComponent implements OnInit {
   isAuthorized$!: Observable<boolean>
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AuthService) {}
 
   ngOnInit(): void {
     this.isAuthorized$ = this.accountService.isAuthorized$;

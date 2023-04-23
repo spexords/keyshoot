@@ -34,7 +34,7 @@ const authCodeFlowConfig: AuthConfig = {
 @Injectable({
   providedIn: 'root',
 })
-export class AccountService {
+export class AuthService {
   private _isAuthorizedSource: BehaviorSubject<boolean> = new BehaviorSubject(
     false
   );

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AccountService } from '../account/account.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +11,9 @@ export class HomeComponent implements OnInit {
 
   data: any;
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AuthService) {}
 
   ngOnInit(): void {
-    console.log('home')
-    // this.data = this.accountService.userData;
+    this.data = this.accountService.userData;
   }
 }
