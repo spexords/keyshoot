@@ -1,5 +1,6 @@
 using IdentityModel;
 using Keyshoot.Core.Entities.Identity;
+using Keyshoot.Identity.Pages.Login;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -72,7 +73,13 @@ namespace Keyshoot.Identity.Pages.Account.Register
                         }
                     }
                 }
+
+                result.Errors.ToList().ForEach(error =>
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                });
             }
+
             return Page();
         }
     }

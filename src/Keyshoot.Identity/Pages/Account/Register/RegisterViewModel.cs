@@ -12,3 +12,4 @@ public class RegisterViewModel
     public string Email { get; set; }
     public string ReturnUrl { get; set; }
 }
+    

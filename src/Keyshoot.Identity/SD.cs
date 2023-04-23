@@ -57,9 +57,8 @@ public static class SD
                 RedirectUris = {"http://localhost:4200" },
                 AllowAccessTokensViaBrowser = true,
                 AlwaysIncludeUserClaimsInIdToken = true,
-                AllowedCorsOrigins = { "http://localhost:4200" }
-                //RedirectUris = {"https://localhost:5001/signin-oidc"},
-                //PostLogoutRedirectUris = { "https://localhost:5001/signout-callback-oidc" }
+                AllowedCorsOrigins = { "http://localhost:4200" },
+                PostLogoutRedirectUris = { "http://localhost:4200" }
             }
         };
 }
