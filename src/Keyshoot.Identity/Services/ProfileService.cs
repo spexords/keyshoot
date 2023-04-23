@@ -6,7 +6,7 @@ using Keyshoot.Core.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace Keyshoot.Identity;
+namespace Keyshoot.Identity.Services;
 
 public class ProfileService : IProfileService
 {

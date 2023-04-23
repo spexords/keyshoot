@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
+using System.Security.Claims;
 
 namespace Keyshoot.Api.Controllers;
 
@@ -15,6 +17,7 @@ public class TestController : BaseApiController
     [HttpGet("auth")]
     public ActionResult<string> GetTestAuthMessage()
     {
-        return "Test auth message";
+        var username = User.FindFirstValue("id");
+        return $"Test auth: {username} message";
     }
 }

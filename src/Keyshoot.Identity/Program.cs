@@ -1,44 +1,22 @@
+using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Keyshoot.Core.Entities.Identity;
 using Keyshoot.Identity;
 using Keyshoot.Identity.Data;
+using Keyshoot.Identity.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<AppIdentityDbContext>(options => 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-})
-    .AddEntityFrameworkStores<AppIdentityDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.ConfigureIdentityServer(config);
 
 builder.Services.AddRazorPages();
-
-builder.Services.AddIdentityServer(options =>
-{
-    options.Events.RaiseErrorEvents = true;
-    options.Events.RaiseInformationEvents = true;
-    options.Events.RaiseFailureEvents = true;
-    options.Events.RaiseSuccessEvents = true;
-    options.EmitStaticAudienceClaim = true;
-}).AddInMemoryIdentityResources(SD.IdentityResources)
-.AddInMemoryApiResources(SD.ApiResources)
-.AddInMemoryApiScopes(SD.ApiScopes)
-.AddInMemoryClients(SD.Clients)
-.AddAspNetIdentity<AppUser>()
-.AddDeveloperSigningCredential()
-.AddProfileService<ProfileService>();
-
-builder.Services.AddScoped<IProfileService, ProfileService>();
 
 var app = builder.Build();
 
