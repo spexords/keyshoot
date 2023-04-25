@@ -20,8 +20,10 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-//Seed data
+//migrations & seeding
 using var scope = app.Services.CreateScope();
+var context = scope.ServiceProvider.GetRequiredService<AppIdentityDbContext>();
+await context.Database.MigrateAsync();
 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 await AppIdentityDbContextSeed.SeedAsync(userManager);
 
