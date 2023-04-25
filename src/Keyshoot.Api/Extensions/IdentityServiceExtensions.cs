@@ -13,7 +13,7 @@ public static class IdentityServiceExtensions
         {
             options.RequireHttpsMetadata = false;
             options.SaveToken = true;
-            options.Authority = config["ExternalServices:Identity"];
+            options.Authority = config["Token:Authority"];
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
@@ -21,7 +21,18 @@ public static class IdentityServiceExtensions
                 ValidateIssuer = false,
                 ValidateAudience = false,
             };
+            if(IsDockerEnvironment())
+            {
+                options.BackchannelHttpHandler = new HttpClientHandler
+                {
+                    ClientCertificateOptions = ClientCertificateOption.Manual,
+                    ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+                };
+            }
         });
         return @this;
     }
+
+    private static bool IsDockerEnvironment() => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Docker";
+
 }

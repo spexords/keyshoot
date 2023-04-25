@@ -1,4 +1,7 @@
-﻿namespace Keyshoot.Api.Extensions;
+﻿using Keyshoot.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace Keyshoot.Api.Extensions;
 
 public static class ApplicationServicesExtensions
 {
@@ -8,7 +11,7 @@ public static class ApplicationServicesExtensions
         public string[] AllowedOrigins { get; set; } = default!;
     }
 
-    public static void AddApplicationServices(this IServiceCollection @this, IConfiguration config)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection @this, IConfiguration config)
     {
         var cors = config.GetSection("Cors").Get<Cors>();
         @this.AddCors(options =>
@@ -21,5 +24,7 @@ public static class ApplicationServicesExtensions
                         .WithOrigins(cors.AllowedOrigins.ToArray());
                 });
         });
+        @this.AddDbContext<KeyshootContext>(options => options.UseSqlServer(config.GetConnectionString("SqlConnection")));
+        return @this;
     }
 }
