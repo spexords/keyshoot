@@ -1,4 +1,5 @@
 using Keyshoot.Api.Extensions;
+using Keyshoot.Api.Hubs;
 using Keyshoot.Core.Entities.Identity;
 using Keyshoot.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -46,5 +47,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<LobbyHub>("/lobby");
 
 app.Run();

@@ -1,5 +1,7 @@
 ﻿using Keyshoot.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace Keyshoot.Api.Extensions;
 
@@ -24,7 +26,16 @@ public static class ApplicationServicesExtensions
                         .WithOrigins(cors.AllowedOrigins.ToArray());
                 });
         });
+        @this.AddSignalR();
+
+        @this.AddSingleton<IConnectionMultiplexer>(c =>
+        {
+            var options = ConfigurationOptions.Parse(config.GetConnectionString("redis"));
+            return ConnectionMultiplexer.Connect(options);
+        });
         @this.AddDbContext<KeyshootContext>(options => options.UseSqlServer(config.GetConnectionString("SqlConnection")));
+
+
         return @this;
     }
 }

@@ -29,7 +29,6 @@ export class AuthService {
           this.oauthService.initLoginFlow();
         } else {
           this.oauthService.loadUserProfile().then((profile) => {
-            console.log(profile);
             this._isAuthorizedSource.next(true);
           });
         }

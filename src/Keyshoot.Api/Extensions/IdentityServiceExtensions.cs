@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Win32.SafeHandles;
 using System.Text;
 
 namespace Keyshoot.Api.Extensions;
@@ -20,6 +21,22 @@ public static class IdentityServiceExtensions
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"])),
                 ValidateIssuer = false,
                 ValidateAudience = false,
+            };
+            options.Events = new JwtBearerEvents
+            {
+                OnMessageReceived = context =>
+                {
+                    var accessToken = context.Request.Query["access_token"];
+
+                    var path = context.HttpContext.Request.Path;
+
+                    if(!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs/lobby"))
+                    {
+                        context.Token = accessToken;
+                    }
+
+                    return Task.CompletedTask;
+                }
             };
             if(IsDockerEnvironment())
             {
