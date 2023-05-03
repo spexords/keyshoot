@@ -1,5 +1,6 @@
 using Keyshoot.Api.Extensions;
 using Keyshoot.Api.Hubs;
+using Keyshoot.Api.Middlewares;
 using Keyshoot.Core.Entities.Identity;
 using Keyshoot.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -35,6 +36,8 @@ await context.Database.MigrateAsync();
 await KeyshootContextSeed.SeedAsync(context, loggerFactory);
 
 // Configure the HTTP request pipeline.
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseSwaggerWithOAuth();
 

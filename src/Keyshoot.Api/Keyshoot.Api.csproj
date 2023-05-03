@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.16">
       <PrivateAssets>all</PrivateAssets>
@@ -44,8 +45,7 @@
 
   <ItemGroup>
     <Folder Include="Features\BookTexts\Commands\" />
-    <Folder Include="Features\BookTexts\Handlers\" />
-    <Folder Include="Features\BookTexts\Queries\" />
+    <Folder Include="Dtos\" />
   </ItemGroup>
 
 </Project>

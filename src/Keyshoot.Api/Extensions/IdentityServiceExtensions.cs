@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Win32.SafeHandles;
 using System.Text;
 
 namespace Keyshoot.Api.Extensions;
@@ -38,7 +37,7 @@ public static class IdentityServiceExtensions
                     return Task.CompletedTask;
                 }
             };
-            if(IsDockerEnvironment())
+            if(EnvironmentExtensions.IsDockerEnvironment())
             {
                 options.BackchannelHttpHandler = new HttpClientHandler
                 {
@@ -49,7 +48,4 @@ public static class IdentityServiceExtensions
         });
         return @this;
     }
-
-    private static bool IsDockerEnvironment() => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Docker";
-
 }
