@@ -26,7 +26,8 @@ public static class ApplicationServicesExtensions
                 {
                     policy.AllowAnyHeader()
                         .AllowAnyMethod()
-                        .WithOrigins(cors.AllowedOrigins.ToArray());
+                        .AllowCredentials()
+                        .WithOrigins(cors.AllowedOrigins);
                 });
         });
         @this.AddSignalR();

@@ -1,6 +1,7 @@
 export const environment = {
     production: false,
     apiUrl: 'https://localhost:5001/api/',
+    hubUrl: 'https://localhost:5001/hubs/',
     authConfig: {
       issuer: 'https://localhost:7001',
       redirectUri: 'http://localhost:4200',

@@ -54,6 +54,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<LobbyHub>("/lobby");
+app.MapHub<LobbyHub>("/hubs/lobby");
 
 app.Run();

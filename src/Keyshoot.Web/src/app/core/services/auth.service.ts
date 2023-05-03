@@ -28,7 +28,7 @@ export class AuthService {
         if (!this.oauthService.hasValidAccessToken()) {
           this.oauthService.initLoginFlow();
         } else {
-          this.oauthService.loadUserProfile().then((profile) => {
+          this.oauthService.loadUserProfile().then(() => {
             this._isAuthorizedSource.next(true);
           });
         }
@@ -44,5 +44,9 @@ export class AuthService {
   get userData(): string {
     const claims = this.oauthService.getIdentityClaims();
     return claims['id'] as string;
+  }
+
+  get token(): string {
+    return this.oauthService.getAccessToken();
   }
 }
