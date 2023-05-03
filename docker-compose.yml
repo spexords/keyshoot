@@ -1,126 +1,72 @@
-networks:
-  app-network:
-    driver: bridge
-
 services:
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: sqlserver
-    environment:
-      - ACCEPT_EULA=Y 
-      - MSSQL_SA_PASSWORD=Pa55w0rd2019
-      - MSSQL_PID=Express
-    expose:
-      - 1433
-    ports:
-      - 1433:1433
-    networks:
-      - app-network
+    sqlserver:
+        extends:
+            file: common-services.yml
+            service: sqlserver
 
-  webapi:
-    build:
-      context: .
-      dockerfile: src/Keyshoot.Api/Dockerfile
-    container_name: webapi
-    restart: always
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
-      - ASPNETCORE_URLS=https://+:5001;http://+:5000
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=PawCio97
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
-    expose:
-      - 5000
-      - 5001
-    ports:
-      - 5000:5000
-      - 5001:5001
-    links:
-      - sqlserver
-      - redis
-      - identity
-    networks:
-      - app-network
-    depends_on:
-      - sqlserver
-      - redis
-      - identity
-    volumes:
-      - ./ssl/:/https:ro
+    redis:
+        extends:
+            file: common-services.yml
+            service: redis
 
-  identity:
-    build:
-      context: .
-      dockerfile: src/Keyshoot.Identity/Dockerfile
-    container_name: identity
-    restart: always
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
-      - ASPNETCORE_URLS=https://+:7001;http://+:7000
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=PawCio97
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
-    expose:
-      - 7000
-      - 7001
-    ports:
-      - 7000:7000
-      - 7001:7001
-    links:
-      - sqlserver
-    networks:
-      - app-network
-    depends_on:
-      - sqlserver
-    volumes:
-      - ./ssl:/https:ro
+    webapi:
+        build:
+            context: .
+            dockerfile: src/Keyshoot.Api/Dockerfile
+        container_name: webapi
+        restart: always
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Docker
+            - ASPNETCORE_URLS=https://+:5001;http://+:5000
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=PawCio97
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
+        expose:
+            - 5000
+            - 5001
+        ports:
+            - 5000:5000
+            - 5001:5001
+        depends_on:
+            - sqlserver
+            - redis
+            - identity
+        volumes:
+            - ./ssl/:/https:ro
 
-  web:
-    build:
-      context: .
-      dockerfile: src/Keyshoot.Web/Dockerfile
-    container_name: web
-    restart: always
-    ports:
-      - 4200:4200
-    networks:
-      - app-network
-    links:
-      - webapi
-      - identity
-    depends_on:
-      - webapi
-      - identity
-    command: 
-      ng serve --host 0.0.0.0
+    identity:
+        build:
+            context: .
+            dockerfile: src/Keyshoot.Identity/Dockerfile
+        container_name: identity
+        restart: always
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Docker
+            - ASPNETCORE_URLS=https://+:7001;http://+:7000
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=PawCio97
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
+        expose:
+            - 7000
+            - 7001
+        ports:
+            - 7000:7000
+            - 7001:7001
+        depends_on:
+            - sqlserver
+        volumes:
+            - ./ssl:/https:ro
 
-  redis:
-    image: redis:latest
-    container_name: redis
-    expose:
-      - 6379
-    ports:
-      - 6379:6379
-    command: ["redis-server", "--appendonly", "yes"]
-    volumes:
-      - redis-data:/data
-    networks:
-      - app-network
-
-  redis-commander:
-    image: rediscommander/redis-commander:latest
-    container_name: rediscommander
-    environment:
-      - REDIS_HOSTS=local:redis:6379
-      - HTTP_USER=root
-      - HTTP_PASSWORD=secret
-    expose:
-      - 8081
-    ports:
-      - 8081:8081
-    depends_on:
-      - redis
-    networks:
-      - app-network
-    
+    web:
+        build:
+            context: .
+            dockerfile: src/Keyshoot.Web/Dockerfile
+        container_name: web
+        restart: always
+        ports:
+            - 4200:4200
+        depends_on:
+            - webapi
+            - identity
+        command: ng serve --host 0.0.0.0
+        
 volumes:
-  redis-data:
-  mssql-data:
+    redis-data:

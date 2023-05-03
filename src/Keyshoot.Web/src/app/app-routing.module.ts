@@ -3,9 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './core/errors/not-found/not-found.component';
 
 const routes: Routes = [
-  { path: 'not-found', component: NotFoundComponent },
   {
-    path: '',
+    path: 'home',
     loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule),
   },
   {
@@ -20,6 +19,12 @@ const routes: Routes = [
     path: 'measure',
     loadChildren: () => import('./features/measure/measure.module').then(m => m.MeasureModule),
   },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/home'
+  },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

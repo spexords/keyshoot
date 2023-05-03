@@ -1,4 +1,6 @@
 using Keyshoot.Api.Extensions;
+using Keyshoot.Api.Hubs;
+using Keyshoot.Api.Middlewares;
 using Keyshoot.Core.Entities.Identity;
 using Keyshoot.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,6 +13,9 @@ using Serilog.Events;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((ctx, lc) => lc
+    .WriteTo.Console());
 
 var config = builder.Configuration;
 
@@ -35,6 +40,8 @@ await KeyshootContextSeed.SeedAsync(context, loggerFactory);
 
 // Configure the HTTP request pipeline.
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseSwaggerWithOAuth();
 
 app.UseHttpsRedirection();
@@ -46,5 +53,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<LobbyHub>("/hubs/lobby");
 
 app.Run();

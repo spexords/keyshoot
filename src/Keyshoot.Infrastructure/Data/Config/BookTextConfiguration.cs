@@ -9,5 +9,7 @@ public class BookTextConfiguration : IEntityTypeConfiguration<BookText>
     public void Configure(EntityTypeBuilder<BookText> builder)
     {
         builder.ToTable("BookTexts");
+        builder.HasIndex(b => b.Title)
+            .IsUnique();
     }
 }

@@ -1,5 +1,10 @@
-﻿using Keyshoot.Infrastructure.Data;
+﻿using Keyshoot.Api.Features.BookTexts.Queries;
+using Keyshoot.Core.Interfaces;
+using Keyshoot.Infrastructure.Data;
+using Keyshoot.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace Keyshoot.Api.Extensions;
 
@@ -21,10 +26,24 @@ public static class ApplicationServicesExtensions
                 {
                     policy.AllowAnyHeader()
                         .AllowAnyMethod()
-                        .WithOrigins(cors.AllowedOrigins.ToArray());
+                        .AllowCredentials()
+                        .WithOrigins(cors.AllowedOrigins);
                 });
         });
+        @this.AddSignalR();
+
+        @this.AddSingleton<IConnectionMultiplexer>(c =>
+        {
+            var options = ConfigurationOptions.Parse(config.GetConnectionString("redis"));
+            return ConnectionMultiplexer.Connect(options);
+        });
+
         @this.AddDbContext<KeyshootContext>(options => options.UseSqlServer(config.GetConnectionString("SqlConnection")));
+        @this.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GenerateWordsQuery).Assembly));
+        @this.AddAutoMapper(typeof(Program).Assembly);
+        @this.AddScoped<IBookTextService, BookTextService>();
+
+
         return @this;
     }
 }
