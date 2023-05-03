@@ -14,6 +14,9 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseSerilog((ctx, lc) => lc
+    .WriteTo.Console());
+
 var config = builder.Configuration;
 
 // Add services to the container.

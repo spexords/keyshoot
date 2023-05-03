@@ -8,10 +8,18 @@ namespace Keyshoot.Api.Controllers;
 public class BookTextsController : BaseApiController
 {
     [HttpGet("generate-words")]
-    public async Task<ActionResult<IEnumerable<string>>> GenerateWords(string title, int count)
+    public async Task<IActionResult> GenerateWords(string title, int count)
     {
         var words = await Mediator.Send(new GenerateWordsQuery { Count = count, Title = title });
 
         return Ok(words);
+    }
+
+    [HttpGet("titles")]
+    public async Task<IActionResult> GetAllTitles()
+    {
+        var titles = await Mediator.Send(new GetAllTitlesQuery());
+
+        return Ok(titles);
     }
 }

@@ -39,6 +39,7 @@ public static class ApplicationServicesExtensions
 
         @this.AddDbContext<KeyshootContext>(options => options.UseSqlServer(config.GetConnectionString("SqlConnection")));
         @this.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GenerateWordsQuery).Assembly));
+        @this.AddAutoMapper(typeof(Program).Assembly);
         @this.AddScoped<IBookTextService, BookTextService>();
 
 
