@@ -1,4 +1,4 @@
-﻿using Keyshoot.Api.Exceptions;
+﻿using Keyshoot.Core.Exceptions;
 using System.Net;
 using System.Net.Mime;
 using System.Text.Json;

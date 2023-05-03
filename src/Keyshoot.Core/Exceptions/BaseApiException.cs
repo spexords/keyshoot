@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Keyshoot.Api.Exceptions;
+namespace Keyshoot.Core.Exceptions;
 
 public class BaseApiException : Exception
 {

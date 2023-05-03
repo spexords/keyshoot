@@ -1,8 +1,10 @@
 ﻿using Keyshoot.Core.Entities;
+using Keyshoot.Core.Exceptions;
 using Keyshoot.Core.Interfaces;
 using Keyshoot.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace Keyshoot.Infrastructure.Services;
 
@@ -27,7 +29,7 @@ public class BookTextService : IBookTextService
 
 		if(!_bookTextsSource.ContainsKey(title))
 		{
-            _logger.LogError("Book text: '{0}' does not exist", title);
+			throw new BaseApiException(HttpStatusCode.NotFound, $"Book text: '{title}' does not exist");
         }
 
         return _bookTextsSource[title];
