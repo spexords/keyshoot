@@ -12,14 +12,14 @@ export class LobbyService {
 
   constructor(private authService: AuthService) {}
 
-  start() {
+  start(): void {
     this._hubConnection = new HubConnectionBuilder()
       .withUrl(this._url, { accessTokenFactory: () => this.authService.token })
       .build();
     this._hubConnection.start().catch((err) => console.log(err));
   }
 
-  stop() {
+  stop(): void {
     this._hubConnection?.stop();
   }
 }

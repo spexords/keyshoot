@@ -1,0 +1,26 @@
+.section {
+  display: flex;
+  gap: 300px;
+  .text-content {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    h1 {
+      font-size: 4rem;
+      font-weight: bold;
+    }
+    p {
+      text-align: justify;
+      font-size: 2rem;
+      letter-spacing: .1rem;
+    }
+  }
+  .illustration {
+    height: 180px;
+  }
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}

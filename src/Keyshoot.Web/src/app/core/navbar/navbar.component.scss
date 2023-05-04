@@ -1,13 +1,33 @@
+@import "/src/app/shared/styles/colors.scss";
+
 nav {
-    height: 100px;
-    background-color: gray;
+  padding: 2.5rem 0;
+  cursor: pointer;
+
+  .nav-content {
+    margin: 0 auto;
+    width: 1200px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    cursor: pointer;
-    a {
+    justify-content: space-between;
+
+    .logo {
+      height: 60px;
+    }
+
+    .nav-options {
+      display: flex;
+      gap: 10rem;
+      a {
         font-size: 3rem;
         color: black;
         text-decoration: none;
+        padding-bottom: 0.5rem;
+        &.active {
+          font-weight: bold;
+          border-bottom: 3px solid $red-hot;
+        }
+      }
     }
+  }
 }
