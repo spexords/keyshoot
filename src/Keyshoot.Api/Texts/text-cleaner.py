@@ -1,17 +1,28 @@
 import os
+import re
 
-illegal_characters = ['\n', '\r\n', '\t', '“', '”', '_', '—', '…']
+illegal_characters = ['\n', '\r\n', '\t', '“', '”', '_', '—', '…', '«', '»', '    ']
+
+replace_chars = [
+  ('\n', ' '),
+  ('\t', ' '),
+  ('é', 'e'),
+  ('á', 'a')
+]
 
 def clean_file(path):
-    with open(path, "r+", encoding='utf-8') as file:
-        data = file.read()
-        for _ in range(12):
-          data = data.replace('\n\n', '\n')
+    with open(path, "r", encoding='utf-8') as file:
+      data = file.read()
+      data = re.sub(' +', ' ', data)
 
-        for char in illegal_characters:
-          data = data.replace(char, '')
+      for char in illegal_characters:
+        data = data.replace(char, '')
 
-        file.write(data)
+      for (char1, char2) in replace_chars:
+        data = data.replace(char1, char2)
+      
+      with open(path, "w", encoding='utf-8') as f:
+        f.write(data)
           
 
 def main():
