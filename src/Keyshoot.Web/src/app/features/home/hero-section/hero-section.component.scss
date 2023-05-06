@@ -1,6 +1,7 @@
 .section {
+  padding: 0 6rem;
   display: flex;
-  gap: 300px;
+  column-gap: 200px;
   .text-content {
     padding: 2rem 0;
     display: flex;
