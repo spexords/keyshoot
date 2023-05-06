@@ -2,14 +2,16 @@
   <div class="nav-content">
     <img routerLink="/" src="assets/logo/logo.svg" alt="logo" class="logo" />
     <div class="nav-options">
-      <a routerLinkActive="active" routerLink="/home" routerLinkActive="active">Home</a>
-      <a routerLinkActive="active" routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>
-      <a routerLinkActive="active" routerLink="/measure" routerLinkActive="active">Measure</a>
+      <a routerLinkActive="active" routerLink="/home">Home</a>
+      <a routerLinkActive="active" routerLink="/leaderboard">Leaderboard</a>
 
-      <a *ngIf="!(isAuthorized$ | async); else noAuthorized" (click)="login()"
+      <a *ngIf="!(isAuthorized$ | async); else authorized" (click)="login()"
         >Sign Up</a
       >
-      <ng-template #noAuthorized>
+      <ng-template #authorized>
+        <button class="outline" routerLink="/measure" routerLinkActive="active">
+          measure
+        </button>
         <a (click)="logout()">Logout</a>
       </ng-template>
     </div>

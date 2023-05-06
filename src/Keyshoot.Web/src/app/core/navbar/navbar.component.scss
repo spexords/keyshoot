@@ -17,6 +17,7 @@ nav {
 
     .nav-options {
       display: flex;
+      align-items: center;
       gap: 10rem;
       a {
         font-size: 3rem;
@@ -26,6 +27,12 @@ nav {
         &.active {
           font-weight: bold;
           border-bottom: 3px solid $red-hot;
+        }
+      }
+
+      button {
+        &.active {
+          font-weight: bold;
         }
       }
     }
