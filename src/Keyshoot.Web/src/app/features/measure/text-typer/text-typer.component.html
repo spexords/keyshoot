@@ -1,1 +1,15 @@
-<p>text-typer works!</p>
+<div class="text-typer">
+  <div class="past-input">
+    <ng-container *ngFor="let pastWord of pastWords">
+      <span class="past-word">{{ pastWord }}</span>
+      <span>&nbsp;</span>
+    </ng-container>
+    <span>{{ currentWord }}</span>
+  </div>
+  <div class="current-input">
+    <input #input (input)="onInputChange($event)" />
+    <div class="words-container">
+      {{wordsToType}}
+    </div>
+  </div>
+</div>
