@@ -1,10 +1,11 @@
 import os
 import re
 
-illegal_characters = ['\n', '\r\n', '\t', '“', '”', '_', '—', '…', '«', '»', '    ']
+illegal_characters = ['“', '”', '_', '—', '…', '«', '»']
 
 replace_chars = [
   ('\n', ' '),
+  ('\r\n', ' '),
   ('\t', ' '),
   ('é', 'e'),
   ('á', 'a')
