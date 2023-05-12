@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { LeaderboardQueryParams } from './models';
 
 @Component({
   selector: 'app-leaderboard',
@@ -7,19 +9,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./leaderboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LeaderboardComponent implements OnInit {
+export class LeaderboardComponent {
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  queryParmas = this.route.queryParams as Observable<LeaderboardQueryParams>;
   currentPage = 1;
-  form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      player: [''],
+  paramsChange(params: Partial<LeaderboardQueryParams>): void {
+    this.router.navigate(['.'], {
+      queryParams: params,
+      relativeTo: this.route,
     });
-  }
-
-  onSubmit(): void {
-    console.log(this.form.value)
   }
 }

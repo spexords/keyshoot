@@ -1,13 +1,10 @@
 <h2>Leaderboard</h2>
 
-<form [formGroup]="form">
-  <app-text-input
-    class="wide-input"
-    formControlName="player"
-    [label]="'Player'"
-  ></app-text-input>
-  <button>Search</button>
-</form>
+<app-filters
+  *ngIf="queryParmas | async as params"
+  [params]="params"
+  (paramsChanges)="paramsChange($event)"
+></app-filters>
 
 <div class="table-wrapper">
   <table class="fluid-table">

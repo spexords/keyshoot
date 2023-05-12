@@ -11,12 +11,6 @@ h2 {
   font-weight: bold;
 }
 
-form {
-  display: flex;
-  align-items: flex-end;
-  column-gap: 3rem;
-}
-
 .table-wrapper {
   flex: 1;
   overflow: hidden;
@@ -24,9 +18,4 @@ form {
 
 .fluid-table {
   width: 100%;
-}
-
-
-.wide-input {
-  width: 350px;
 }
