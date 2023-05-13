@@ -23,6 +23,7 @@ export class FiltersComponent {
   form = new FormGroup({
     player: new FormControl(),
     order: new FormControl(),
+    sort: new FormControl(),
   });
 
   onSubmit() {

@@ -1,5 +1,9 @@
+.test {
+  width: auto;
+}
+
 span {
-  white-space: pre
+  white-space: pre;
 }
 
 .text-typer {
@@ -22,6 +26,10 @@ span {
   justify-content: flex-end;
   .past-word {
     color: #bbb;
+  }
+  .invalid-input {
+    text-decoration: line-through;
+    color: red;
   }
 }
 
@@ -58,6 +66,4 @@ span {
     position: absolute;
     text-align: left;
   }
-
 }
-

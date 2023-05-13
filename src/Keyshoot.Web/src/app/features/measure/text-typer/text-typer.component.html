@@ -4,12 +4,22 @@
       <span class="past-word">{{ pastWord }}</span>
       <span>&nbsp;</span>
     </ng-container>
-    <span>{{ currentWord }}</span>
+    <span [class.invalid-input]="!validInput()">{{ currentInput() }}</span>
   </div>
   <div class="current-input">
-    <input #input (input)="onInputChange($event)" />
+    <input
+      #input
+      autofocus
+      (keydown.Space)="handleSpaceKey()"
+      (keydown.Backspace)="handleBackspaceKey()"
+      (input)="onInputChange($event)"
+    />
     <div class="words-container">
-      {{wordsToType}}
+      <span>{{ currentWord() }}</span>
+      <ng-container *ngFor="let restWord of restWords">
+        <span>&nbsp;</span>
+        <span>{{ restWord }}</span>
+      </ng-container>
     </div>
   </div>
 </div>
