@@ -35,6 +35,11 @@
               "src/app/shared/styles/common.scss",
               "src/app/shared/styles/forms.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/shared/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {

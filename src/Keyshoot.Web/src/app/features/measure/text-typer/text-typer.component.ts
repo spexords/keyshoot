@@ -46,11 +46,7 @@ export class TextTyperComponent {
   validInput = computed(() => {
     const inputWord = this.currentInput();
     const word = this.wordsToType[0];
-    return (
-      word[0] === inputWord[0] &&
-      word.includes(inputWord) &&
-      inputWord.length <= word.length
-    );
+    return word.startsWith(inputWord) && inputWord.length <= word.length;
   });
 
   get restWords(): string[] {
