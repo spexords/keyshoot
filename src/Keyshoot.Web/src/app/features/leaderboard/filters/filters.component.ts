@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { LeaderboardQueryParams } from '../models';
+import { FiltersFormGroup, LeaderboardQueryParams } from '../models';
 
 @Component({
   selector: 'app-filters',
@@ -20,7 +20,7 @@ export class FiltersComponent {
   }
   @Output() paramsChanges = new EventEmitter<LeaderboardQueryParams>();
 
-  form = new FormGroup({
+  form: FiltersFormGroup = new FormGroup({
     player: new FormControl(),
     order: new FormControl(),
     sort: new FormControl(),

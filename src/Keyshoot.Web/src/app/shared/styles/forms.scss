@@ -1,6 +1,5 @@
 @import "colors";
 
-
 .form-group {
   display: flex;
   flex-direction: column;
@@ -41,15 +40,13 @@ button {
 
 table {
   border-collapse: collapse;
-
   th {
     font-size: 1.5rem;
     text-align: left;
+    box-shadow: inset 0 -1px 0 $blue-shoot;
+    background-color: white;
   }
 
-  tr:first-child {
-    border-bottom: solid 1px $blue-shoot;
-  }
 
   th,
   td {

@@ -13,7 +13,6 @@ export class LeaderboardComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   queryParmas = this.route.queryParams as Observable<LeaderboardQueryParams>;
-  currentPage = 1;
 
   paramsChange(params: Partial<LeaderboardQueryParams>): void {
     this.router.navigate(['.'], {
