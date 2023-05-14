@@ -7,17 +7,17 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  private _authCodeFlowConfig = environment.authConfig as AuthConfig;
-  private _isAuthorizedSource: BehaviorSubject<boolean> = new BehaviorSubject(
+  private authCodeFlowConfig = environment.authConfig as AuthConfig;
+  private isAuthorizedSource: BehaviorSubject<boolean> = new BehaviorSubject(
     false
   );
-  isAuthorized$: Observable<boolean> = this._isAuthorizedSource.asObservable();
+  isAuthorized$: Observable<boolean> = this.isAuthorizedSource.asObservable();
 
   constructor(private oauthService: OAuthService) {
-    this.oauthService.configure(this._authCodeFlowConfig);
+    this.oauthService.configure(this.authCodeFlowConfig);
     this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
       this.oauthService.tryLoginImplicitFlow().then(() => {
-        this._isAuthorizedSource.next(this.oauthService.hasValidAccessToken());
+        this.isAuthorizedSource.next(this.oauthService.hasValidAccessToken());
       });
     });
   }
@@ -29,7 +29,7 @@ export class AuthService {
           this.oauthService.initLoginFlow();
         } else {
           this.oauthService.loadUserProfile().then(() => {
-            this._isAuthorizedSource.next(true);
+            this.isAuthorizedSource.next(true);
           });
         }
       });
@@ -38,7 +38,7 @@ export class AuthService {
 
   logout(): void {
     this.oauthService.logOut();
-    this._isAuthorizedSource.next(false);
+    this.isAuthorizedSource.next(false);
   }
 
   get userData(): string {

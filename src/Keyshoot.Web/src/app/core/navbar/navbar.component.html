@@ -1,11 +1,19 @@
 <nav>
-  <img routerLink="/" class="logo" />
-  <a routerLink="/" routerLinkActive="active">Home</a>
-  <a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>
-  <a routerLink="/measure" routerLinkActive="active">Measure</a>
+  <div class="nav-content">
+    <img routerLink="/" src="assets/logo/logo.svg" alt="logo" class="logo" />
+    <div class="nav-options">
+      <a routerLinkActive="active" routerLink="/home">Home</a>
+      <a routerLinkActive="active" routerLink="/leaderboard">Leaderboard</a>
 
-  <a *ngIf="!(isAuthorized$ | async); else noAuth" (click)="login()">Sign Up</a>
-  <ng-template #noAuth>
-    <a (click)="logout()">Logout</a>
-  </ng-template>
+      <a *ngIf="!(isAuthorized$ | async); else authorized" (click)="login()"
+        >Sign Up</a
+      >
+      <ng-template #authorized>
+        <button class="outline" routerLink="/measure" routerLinkActive="active">
+          measure
+        </button>
+        <a (click)="logout()">Logout</a>
+      </ng-template>
+    </div>
+  </div>
 </nav>

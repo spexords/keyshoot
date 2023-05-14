@@ -1,1 +1,9 @@
-<p>leaderboard works!</p>
+<h2>Leaderboard</h2>
+
+<app-filters
+  *ngIf="queryParmas | async as params"
+  [params]="params"
+  (paramsChanges)="paramsChange($event)"
+></app-filters>
+
+<app-board></app-board>

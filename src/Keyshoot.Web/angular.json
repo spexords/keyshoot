@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Keyshoot.Web": {
+    "KeyshootWeb": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/keyshoot.web",
+            "outputPath": "dist/KeyshootWeb",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -30,9 +30,16 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
-              "src/app/shared/styles/common.scss"
+              "src/app/shared/styles/common.scss",
+              "src/app/shared/styles/forms.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/shared/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -72,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Keyshoot.Web:build:production"
+              "browserTarget": "KeyshootWeb:build:production"
             },
             "development": {
-              "browserTarget": "Keyshoot.Web:build:development"
+              "browserTarget": "KeyshootWeb:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +90,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Keyshoot.Web:build"
+            "browserTarget": "KeyshootWeb:build"
           }
         },
         "test": {
@@ -100,6 +107,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []

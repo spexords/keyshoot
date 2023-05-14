@@ -1,0 +1,8 @@
+form {
+  display: flex;
+  align-items: flex-end;
+  column-gap: 3rem;
+  .wide-input {
+    width: 350px;
+  }
+}

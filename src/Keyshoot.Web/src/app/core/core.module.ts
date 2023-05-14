@@ -5,20 +5,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { FooterComponent } from './footer/footer.component';
+import { ForbiddenComponent } from './errors/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    FooterComponent,
+    ForbiddenComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     HttpClientModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
   ],
-  exports: [
-    NavbarComponent
-  ]
+  exports: [NavbarComponent, FooterComponent],
 })
-export class CoreModule { }
+export class CoreModule {}
