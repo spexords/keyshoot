@@ -1,0 +1,22 @@
+.modal {
+  padding: 3rem;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.modal-header {
+  font-size: 3rem;
+}
+
+.modal-body {
+  font-size: 2rem;
+  text-align: justify;
+}
+
+.modal-options {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 2rem;
+}

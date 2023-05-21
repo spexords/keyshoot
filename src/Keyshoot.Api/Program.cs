@@ -1,16 +1,9 @@
 using Keyshoot.Api.Extensions;
 using Keyshoot.Api.Hubs;
 using Keyshoot.Api.Middlewares;
-using Keyshoot.Core.Entities.Identity;
 using Keyshoot.Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Serilog;
-using Serilog.Events;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,5 +48,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapHub<LobbyHub>("/hubs/lobby");
+app.MapHub<MeasureHub>("/hubs/measure");
 
 app.Run();

@@ -5,17 +5,16 @@ import { MeasureRoutingModule } from './measure-routing.module';
 import { StatsRectComponent } from './stats-rect/stats-rect.component';
 import { TextTyperComponent } from './text-typer/text-typer.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NewMeasureModalComponent } from './new-measure-modal/new-measure-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     MeasureComponent,
     StatsRectComponent,
-    TextTyperComponent
+    TextTyperComponent,
+    NewMeasureModalComponent,
   ],
-  imports: [
-    CommonModule,
-    MeasureRoutingModule,
-    SharedModule
-  ]
+  imports: [CommonModule, MeasureRoutingModule, MatDialogModule, SharedModule],
 })
-export class MeasureModule { }
+export class MeasureModule {}
