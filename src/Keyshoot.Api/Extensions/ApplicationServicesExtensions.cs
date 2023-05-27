@@ -1,24 +1,17 @@
-﻿using Keyshoot.Api.Features.BookTexts.Queries;
+﻿
+using Keyshoot.Api.Features.BookTexts.Queries;
 using Keyshoot.Core.Interfaces;
+using Keyshoot.Core.Settings;
 using Keyshoot.Infrastructure.Data;
 using Keyshoot.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
-
-namespace Keyshoot.Api.Extensions;
 
 public static class ApplicationServicesExtensions
 {
-    private class Cors
-    {
-        public string PolicyName { get; set; } = default!;
-        public string[] AllowedOrigins { get; set; } = default!;
-    }
-
     public static IServiceCollection AddApplicationServices(this IServiceCollection @this, IConfiguration config)
     {
-        var cors = config.GetSection("Cors").Get<Cors>();
+        var cors = config.GetSection("Cors").Get<CorsSettings>();
         @this.AddCors(options =>
         {
             options.AddPolicy(cors.PolicyName,
@@ -42,7 +35,8 @@ public static class ApplicationServicesExtensions
         @this.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GenerateWordsQuery).Assembly));
         @this.AddAutoMapper(typeof(Program).Assembly);
         @this.AddScoped<IBookTextService, BookTextService>();
-
+        @this.AddScoped<IWordsService, WordsService>();
+        @this.AddScoped<IMeasureService, MeasureService>();
 
         return @this;
     }
