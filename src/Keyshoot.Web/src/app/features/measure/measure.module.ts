@@ -7,6 +7,7 @@ import { TextTyperComponent } from './text-typer/text-typer.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NewMeasureModalComponent } from './new-measure-modal/new-measure-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FinishedMeasureModalComponent } from './finished-measure-modal/finished-measure-modal.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     StatsRectComponent,
     TextTyperComponent,
     NewMeasureModalComponent,
+    FinishedMeasureModalComponent,
   ],
   imports: [CommonModule, MeasureRoutingModule, MatDialogModule, SharedModule],
 })

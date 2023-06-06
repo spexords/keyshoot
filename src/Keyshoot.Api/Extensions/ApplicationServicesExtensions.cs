@@ -11,7 +11,7 @@ public static class ApplicationServicesExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection @this, IConfiguration config)
     {
-        var cors = config.GetSection("Cors").Get<CorsSettings>();
+        var cors = config.GetSection("CorsSettings").Get<CorsSettings>();
         @this.AddCors(options =>
         {
             options.AddPolicy(cors.PolicyName,
@@ -23,7 +23,7 @@ public static class ApplicationServicesExtensions
                         .WithOrigins(cors.AllowedOrigins);
                 });
         });
-        @this.AddSignalR();
+        @this.AddSignalR(options => options.MaximumParallelInvocationsPerClient = 5);
 
         @this.AddSingleton<IConnectionMultiplexer>(c =>
         {

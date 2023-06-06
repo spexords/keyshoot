@@ -3,15 +3,44 @@
   <h1>Test your keyboard typing skills</h1>
 </div>
 
-
-<div class="logic-wrapper">
+<div class="logic-wrapper" *ngIf="measure$ | async as measure; else fallback">
   <div class="stats-container">
-      <app-stats-rect [label]="'TIME'" [value]="'00:59'"></app-stats-rect>
-      <app-stats-rect [label]="'WPM'" [value]="'252'"></app-stats-rect>
-      <app-stats-rect [label]="'ACC'" [value]="'54%'"></app-stats-rect>
+    <app-stats-rect
+      [label]="'TIME'"
+      [value]="(timer$ | async) ?? 0 | countdownTimer"
+    ></app-stats-rect>
+    <app-stats-rect
+      [label]="'WPM'"
+      [value]="measure.wordsPerMinute.toString()"
+    ></app-stats-rect>
+    <app-stats-rect
+      [label]="'ACC'"
+      [value]="measure.accuracy.toString() + '%'"
+    ></app-stats-rect>
   </div>
-  
-  <app-text-typer></app-text-typer>
+
+  <app-text-typer
+    [pastWords]="measure.pastWords"
+    [currentWord]="measure.currentWord"
+    [futureWords]="measure.futureWords"
+    (wordSubmitted)="onWordSubmitted($event)"
+  ></app-text-typer>
 </div>
+
+<ng-template #fallback>
+  <div #fallback class="logic-wrapper">
+    <div class="stats-container">
+      <app-stats-rect [label]="'TIME'" [value]="'1:00'"></app-stats-rect>
+      <app-stats-rect [label]="'WPM'" [value]="'0'"></app-stats-rect>
+      <app-stats-rect [label]="'ACC'" [value]="'100%'"></app-stats-rect>
+    </div>
+
+    <app-text-typer
+      [pastWords]="[]"
+      [currentWord]="{ value: '', state: 0 }"
+      [futureWords]="[]"
+    ></app-text-typer>
+  </div>
+</ng-template>
 
 <button class="leave-btn">LEAVE NOW</button>

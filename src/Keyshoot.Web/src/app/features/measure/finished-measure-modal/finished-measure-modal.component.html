@@ -1,0 +1,12 @@
+<div class="modal">
+  <h2 class="modal-header">Summary</h2>
+  <div class="modal-body">
+    <p>
+      Congratulations you have finished measure, your score is:
+      {{ measure.wordsPerMinute }} WPM and {{ measure.accuracy }}% ACC
+    </p>
+  </div>
+  <div class="modal-options">
+    <button (click)="close()">Ok</button>
+  </div>
+</div>

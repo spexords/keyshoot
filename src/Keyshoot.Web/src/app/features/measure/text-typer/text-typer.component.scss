@@ -1,6 +1,4 @@
-.test {
-  width: auto;
-}
+@import "colors";
 
 span {
   white-space: pre;
@@ -15,7 +13,11 @@ span {
   font-size: 3.5rem;
   padding: 3rem 4rem;
   text-align: center;
-  height: 100%;
+  height: 90px;
+}
+
+.invalid-word {
+  text-decoration: line-through;
 }
 
 .past-input {
@@ -27,9 +29,8 @@ span {
   .past-word {
     color: #bbb;
   }
-  .invalid-input {
-    text-decoration: line-through;
-    color: red;
+  .display-word {
+    color: $blue-shoot;
   }
 }
 
@@ -39,7 +40,6 @@ span {
   background-color: transparent;
   font-size: inherit;
   flex: 1;
-  height: 100%;
 
   input {
     z-index: 1;

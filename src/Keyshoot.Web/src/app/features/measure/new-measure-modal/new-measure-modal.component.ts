@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
   inject,
 } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';

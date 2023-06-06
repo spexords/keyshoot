@@ -17,7 +17,7 @@ public class GenerateWordsHandler : IRequestHandler<GenerateWordsQuery, IEnumera
 
     public async Task<IEnumerable<string>> Handle(GenerateWordsQuery request, CancellationToken cancellationToken)
     {
-        var text = await _bookTextService.GetBookTextAsync(request.Title);
+        var text = await _bookTextService.GetBookTextSourceAsync(request.Title);
 
         _logger.LogInformation("Taking {0} words from '{1}' book text", request.Count, request.Title);
         var words = text.Take(request.Count);

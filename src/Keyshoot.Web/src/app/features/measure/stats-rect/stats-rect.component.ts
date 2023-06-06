@@ -4,9 +4,9 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   selector: 'app-stats-rect',
   templateUrl: './stats-rect.component.html',
   styleUrls: ['./stats-rect.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatsRectComponent {
-  @Input() value!: string;
-  @Input() label!: string;
+  @Input({ required: true }) value!: string;
+  @Input({ required: true }) label!: string;
 }
