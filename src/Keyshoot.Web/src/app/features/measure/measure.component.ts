@@ -1,9 +1,18 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { MeasureService } from './measure.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewMeasureModalComponent } from './new-measure-modal/new-measure-modal.component';
 import { Router } from '@angular/router';
 import { TextLanguage } from './models';
+import { delay, filter, first } from 'rxjs';
+import { TextTyperComponent } from './text-typer/text-typer.component';
 
 @Component({
   selector: 'app-measure',
@@ -19,15 +28,11 @@ export class MeasureComponent implements OnInit, OnDestroy {
   measure$ = this.measureService.measure$;
   timer$ = this.measureService.timer$;
 
+  @ViewChild('textTyper') textTyper!: TextTyperComponent;
+
   ngOnInit(): void {
-    this.measureService
-      .start()
-      .then(() => {
-        this.configureModal();
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    this.startMeasureService();
+    this.focusTextTyper();
   }
 
   ngOnDestroy(): void {
@@ -36,6 +41,17 @@ export class MeasureComponent implements OnInit, OnDestroy {
 
   onWordSubmitted(input: string): void {
     this.measureService.updateMeasure(input);
+  }
+
+  private startMeasureService(): void {
+    this.measureService
+      .start()
+      .then(() => {
+        this.configureModal();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   private configureModal(): void {
@@ -47,5 +63,17 @@ export class MeasureComponent implements OnInit, OnDestroy {
         this.router.navigate(['/']);
       }
     });
+  }
+
+  private focusTextTyper(): void {
+    this.measure$
+      .pipe(
+        filter((m) => m != null),
+        first(),
+        delay(1)
+      )
+      .subscribe(() => {
+        this.textTyper.focus();
+      });
   }
 }

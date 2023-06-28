@@ -1,4 +1,4 @@
-import { Injectable, ViewChild, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { AuthService } from '../../core/services/auth.service';
 import { HUBS_URL } from '../../core/tokens/hub-url.token';
@@ -6,20 +6,13 @@ import { Measure, MeasureFinished, MeasureOptions } from './models';
 import {
   BehaviorSubject,
   Observable,
-  endWith,
-  filter,
-  first,
   interval,
   map,
-  of,
-  startWith,
-  switchMap,
   takeWhile,
   withLatestFrom,
 } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { FinishedMeasureModalComponent } from './finished-measure-modal/finished-measure-modal.component';
-import { TextTyperComponent } from './text-typer/text-typer.component';
 
 @Injectable()
 export class MeasureService {
@@ -48,13 +41,16 @@ export class MeasureService {
       this.measureSource.next(measure)
     );
 
-    this.hubConnection.on('ReceiveMeasureFinished', (measure: MeasureFinished) => {
-      console.log(measure)
-      this.dialog.open(FinishedMeasureModalComponent, {
-        data: measure,
-        autoFocus: false,
-      });
-    });
+    this.hubConnection.on(
+      'ReceiveMeasureFinished',
+      (measure: MeasureFinished) => {
+        console.log(measure);
+        this.dialog.open(FinishedMeasureModalComponent, {
+          data: measure,
+          autoFocus: false,
+        });
+      }
+    );
 
     return this.hubConnection.start();
   }
