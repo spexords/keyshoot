@@ -1,24 +1,29 @@
 <div class="text-typer">
   <div class="past-input">
     <ng-container *ngFor="let pastWord of pastWords">
-      <span class="past-word">{{ pastWord }}</span>
+      <span
+        class="past-word"
+        [class.invalid-word]="pastWord.state === wordStates.Invalid"
+        >{{ pastWord.value }}</span
+      >
       <span>&nbsp;</span>
     </ng-container>
-    <span [class.invalid-input]="!validInput()">{{ currentInput() }}</span>
+    <span class="display-word" [class.invalid-word]="!validInput()">{{
+      currentInputSignal()
+    }}</span>
   </div>
   <div class="current-input">
     <input
       #input
-      autofocus
       (keydown.Space)="handleSpaceKey()"
       (keydown.Backspace)="handleBackspaceKey()"
       (input)="onInputChange($event)"
     />
     <div class="words-container">
-      <span>{{ currentWord() }}</span>
-      <ng-container *ngFor="let restWord of restWords">
+      <span>{{ currentWordDisplay() }}</span>
+      <ng-container *ngFor="let futureWord of futureWords">
         <span>&nbsp;</span>
-        <span>{{ restWord }}</span>
+        <span>{{ futureWord.value }}</span>
       </ng-container>
     </div>
   </div>

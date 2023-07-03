@@ -26,10 +26,11 @@ public static class IdentityServiceExtensions
                 OnMessageReceived = context =>
                 {
                     var accessToken = context.Request.Query["access_token"];
+                    var hubsUrls = config.GetSection("Hubs").Get<string[]>();
 
                     var path = context.HttpContext.Request.Path;
 
-                    if(!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs/lobby"))
+                    if(!string.IsNullOrEmpty(accessToken) && hubsUrls.Any(u => path.StartsWithSegments(u)))
                     {
                         context.Token = accessToken;
                     }

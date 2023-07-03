@@ -1,6 +1,9 @@
-﻿namespace Keyshoot.Core.Interfaces;
+﻿using Keyshoot.Core.Entities;
+
+namespace Keyshoot.Core.Interfaces;
 
 public interface IBookTextService
 {
-    Task<IEnumerable<string>> GetBookTextAsync(string title);
+    Task<IEnumerable<string>> GetBookTextSourceAsync(string title);
+    Task<IEnumerable<string>> GetRandomBookTextSourceAsync(TextLanguage language);
 }

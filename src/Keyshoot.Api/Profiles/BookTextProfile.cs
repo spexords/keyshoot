@@ -8,7 +8,6 @@ public class BookTextProfile : Profile
 {
 	public BookTextProfile()
 	{
-		CreateMap<BookText, BookTextTitleDto>()
-			.ForMember(d => d.Language, opts => opts.MapFrom(s => s.TextLanguage.ToString()));
+		CreateMap<BookText, BookTextTitleDto>();
 	}
 }

@@ -1,16 +1,9 @@
 using Keyshoot.Api.Extensions;
 using Keyshoot.Api.Hubs;
 using Keyshoot.Api.Middlewares;
-using Keyshoot.Core.Entities.Identity;
 using Keyshoot.Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Serilog;
-using Serilog.Events;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +17,7 @@ var config = builder.Configuration;
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSettingsBindings(config);
 builder.Services.AddIdentityServices(config);
 builder.Services.AddSwaggerGenWithOAuth(config);
 builder.Services.AddApplicationServices(config);
@@ -46,7 +40,7 @@ app.UseSwaggerWithOAuth();
 
 app.UseHttpsRedirection();
 
-app.UseCors(config["Cors:PolicyName"]);
+app.UseCors(config["CorsSettings:PolicyName"]);
 
 app.UseAuthentication();
 
@@ -55,5 +49,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapHub<LobbyHub>("/hubs/lobby");
+app.MapHub<MeasureHub>("/hubs/measure");
 
 app.Run();

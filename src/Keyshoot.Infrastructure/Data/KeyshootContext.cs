@@ -11,4 +11,5 @@ public class KeyshootContext : DbContext
     }
 
     public DbSet<BookText> BookTexts => Set<BookText>();
+    public DbSet<MeasureScore> MeasureScores => Set<MeasureScore>();
 }

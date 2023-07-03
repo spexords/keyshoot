@@ -20,7 +20,7 @@ public class BookTextService : IBookTextService
 		_logger = logger;
 	}
 
-	public async Task<IEnumerable<string>> GetBookTextAsync(string title)
+	public async Task<IEnumerable<string>> GetBookTextSourceAsync(string title)
 	{
 		if(!_bookTextsSource.Any())
 		{
@@ -34,6 +34,16 @@ public class BookTextService : IBookTextService
 
         return _bookTextsSource[title];
 	}
+
+	public async Task<IEnumerable<string>> GetRandomBookTextSourceAsync(TextLanguage language)
+	{
+		_logger.LogInformation("Drawing random book text source for language: {0}", language);
+		var bookTexts = await _context.BookTexts.Where(b => b.TextLanguage == language).ToListAsync();
+		var index = Random.Shared.Next(bookTexts.Count);
+		var bookText = bookTexts[index];
+		_logger.LogInformation("Drew book text: {0}", bookText.Title);
+		return await GetBookTextSourceAsync(bookText.Title);
+    }
 
 	private async Task LoadBookTextsSource()
 	{

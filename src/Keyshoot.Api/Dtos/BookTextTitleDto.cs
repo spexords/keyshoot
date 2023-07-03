@@ -1,7 +1,9 @@
-﻿namespace Keyshoot.Api.Dtos;
+﻿using Keyshoot.Core.Entities;
+
+namespace Keyshoot.Api.Dtos;
 
 public class BookTextTitleDto
 {
     public string Title { get; set; } = default!;
-    public string Language { get; set; } = default!;
+    public TextLanguage TextLanguage { get; set; } = default!;
 }
