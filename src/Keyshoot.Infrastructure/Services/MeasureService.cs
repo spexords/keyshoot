@@ -33,7 +33,7 @@ public class MeasureService : IMeasureService
 
     public async Task<Measure> CreateMeasureAsync(string player, TextLanguage language)
     {
-        var words = await _wordsService.GenerateWordsAsync(_settings.DefaultWordsCount, TextLanguage.Polish);
+        var words = await _wordsService.GenerateWordsAsync(_settings.DefaultWordsCount, language);
 
         var mappedWords = words.Select(word => new Word { Id = Guid.NewGuid(), State = WordState.New, Value = word }).ToList();
 

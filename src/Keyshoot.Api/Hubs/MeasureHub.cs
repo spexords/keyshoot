@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Keyshoot.Api.Dtos;
 using Keyshoot.Api.Extensions;
+using Keyshoot.Core.Entities;
 using Keyshoot.Core.Entities.Measure;
 using Keyshoot.Core.Interfaces;
+using Keyshoot.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System.Collections.Concurrent;
@@ -23,12 +25,14 @@ public class MeasureHub : Hub<IMeasureHub>
 	private readonly IMeasureService _measureService;
 	private readonly ILogger<MeasureHub> _logger;
 	private readonly IMapper _mapper;
+	private readonly KeyshootContext _context;
 
-	public MeasureHub(IMeasureService measureService, ILogger<MeasureHub> logger, IMapper mapper)
+	public MeasureHub(IMeasureService measureService, ILogger<MeasureHub> logger, IMapper mapper, KeyshootContext context)
 	{
 		_measureService = measureService;
 		_logger = logger;
 		_mapper = mapper;
+		_context = context;
 	}
 
 	public override Task OnConnectedAsync()
@@ -52,7 +56,7 @@ public class MeasureHub : Hub<IMeasureHub>
         _logger.LogInformation("User: {0} created measure #{1}", username, measure.Id);
 		CancellationTokens[username] = new();
         await NotifyMeasureStarted(measure);
-		await NotifyMeasureFinished(measure);
+		await NotifyMeasureFinished(measure, options.Language);
     }
 
 	public async Task UpdateMeasure(string input)
@@ -75,7 +79,7 @@ public class MeasureHub : Hub<IMeasureHub>
         await Clients.Caller.ReceiveMeasureUpdated(measureDto);
     }
 
-	private async Task NotifyMeasureFinished(Measure measure)
+	private async Task NotifyMeasureFinished(Measure measure, TextLanguage language)
 	{
 		try
 		{
@@ -85,8 +89,9 @@ public class MeasureHub : Hub<IMeasureHub>
 			await Task.Delay((int)timeDiff.TotalMilliseconds, token);
 			_logger.LogInformation("User: {0} finished measure", username);
 			measure = await _measureService.FinishMeasureAsync(username);
+			await SaveScore(username, measure, language);
 			var measureFinished = _mapper.Map<MeasureFinishedDto>(measure);
-			await Clients.Caller.ReceiveMeasureFinished(measureFinished);
+            await Clients.Caller.ReceiveMeasureFinished(measureFinished);
 		}
 		catch(TaskCanceledException)
 		{
@@ -94,4 +99,18 @@ public class MeasureHub : Hub<IMeasureHub>
             _logger.LogInformation("User: {0} cancelled measure #{1}", username, measure.Id);
         }
     }
+
+	private async Task SaveScore(string player, Measure measure, TextLanguage language)
+	{
+		_context.Add(new MeasureScore
+		{
+			Player = player,
+			Language = language,
+			Accuracy = measure.Accuracy,
+			WordsPerMinute = measure.WordsPerMinute,
+			Date = DateTime.Now
+		});
+
+		await _context.SaveChangesAsync();
+	}
 }

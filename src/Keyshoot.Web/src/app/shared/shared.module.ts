@@ -8,6 +8,7 @@ import { CountdownTimerPipe } from './pipes/countdown-timer.pipe';
   declarations: [TextInputComponent, CountdownTimerPipe],
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   exports: [
+    CommonModule,
     TextInputComponent,
     ReactiveFormsModule,
     FormsModule,

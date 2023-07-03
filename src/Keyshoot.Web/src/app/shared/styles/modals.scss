@@ -11,8 +11,10 @@
 }
 
 .modal-body {
+  display: flex;
+  flex-direction: column;
   font-size: 2rem;
-  text-align: justify;
+  row-gap: 1rem;
 }
 
 .modal-options {

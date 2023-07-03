@@ -1,6 +1,5 @@
 import {
   Component,
-  ElementRef,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -10,7 +9,7 @@ import { MeasureService } from './measure.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewMeasureModalComponent } from './new-measure-modal/new-measure-modal.component';
 import { Router } from '@angular/router';
-import { TextLanguage } from './models';
+import { MeasureOptions } from './models';
 import { delay, filter, first } from 'rxjs';
 import { TextTyperComponent } from './text-typer/text-typer.component';
 
@@ -56,9 +55,9 @@ export class MeasureComponent implements OnInit, OnDestroy {
 
   private configureModal(): void {
     const dialogRef = this.dialog.open(NewMeasureModalComponent);
-    dialogRef.afterClosed().subscribe((data) => {
-      if (data) {
-        this.measureService.createMeasure({ language: TextLanguage.Polish });
+    dialogRef.afterClosed().subscribe((measureOptions: MeasureOptions) => {
+      if (measureOptions) {
+        this.measureService.createMeasure(measureOptions);
       } else {
         this.router.navigate(['/']);
       }

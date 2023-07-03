@@ -44,7 +44,6 @@ export class MeasureService {
     this.hubConnection.on(
       'ReceiveMeasureFinished',
       (measure: MeasureFinished) => {
-        console.log(measure);
         this.dialog.open(FinishedMeasureModalComponent, {
           data: measure,
           autoFocus: false,
