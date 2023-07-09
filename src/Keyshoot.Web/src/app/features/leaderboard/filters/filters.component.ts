@@ -21,6 +21,7 @@ export class FiltersComponent {
   @Output() paramsChanges = new EventEmitter<LeaderboardQueryParams>();
 
   form: FiltersFormGroup = new FormGroup({
+    language: new FormControl(),
     player: new FormControl(),
     order: new FormControl(),
     sort: new FormControl(),

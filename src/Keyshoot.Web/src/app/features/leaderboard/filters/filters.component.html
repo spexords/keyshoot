@@ -2,6 +2,13 @@
   <div class="form-group">
     <app-text-input
       class="wide-input"
+      [formControl]="form.controls.language"
+      [label]="'Language'"
+    ></app-text-input>
+  </div>
+  <div class="form-group">
+    <app-text-input
+      class="wide-input"
       [formControl]="form.controls.player"
       [label]="'Player'"
     ></app-text-input>

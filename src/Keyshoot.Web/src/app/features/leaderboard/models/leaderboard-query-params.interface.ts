@@ -1,7 +1,8 @@
-import { LeaderboardScore } from './leaderboard-score.interface';
+import { Highscore } from './highscore.interface';
 
 export interface LeaderboardQueryParams {
+  language: string;
   player: string;
   order: 'ASC' | 'DESC';
-  sort: keyof LeaderboardScore;
+  sort: keyof Highscore;
 }

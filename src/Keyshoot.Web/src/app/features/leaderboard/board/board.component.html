@@ -4,6 +4,7 @@
       <thead>
         <tr>
           <th>#</th>
+          <th>Language</th>
           <th>Player</th>
           <th>WPM</th>
           <th>ACC</th>
@@ -11,12 +12,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *cdkVirtualFor="let item of items; let i = index">
+        <tr *cdkVirtualFor="let score of highscores; let i = index">
           <td>{{ i + 1 }}</td>
-          <td>{{ item.username }}</td>
-          <td>{{ item.wpm }}</td>
-          <td>{{ item.acc }}%</td>
-          <td>{{ item.date | date : "dd MMM yyyy" }}</td>
+          <td>{{ score.language }}</td>
+          <td>{{ score.player }}</td>
+          <td>{{ score.wordsPerMinute }}</td>
+          <td>{{ score.accuracy }}%</td>
+          <td>{{ score.date | date : "dd MMM yyyy" }}</td>
         </tr>
       </tbody>
     </table>
