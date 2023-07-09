@@ -2,17 +2,23 @@ import { Injectable, inject } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { AuthService } from '../../core/services/auth.service';
 import { HUBS_URL } from '../../core/tokens/hub-url.token';
-import { Measure, MeasureFinished, MeasureOptions } from './models';
+import {
+  Measure,
+  MeasureFinished,
+  MeasureOptions,
+} from './models';
 import {
   BehaviorSubject,
   Observable,
   interval,
   map,
+  skip,
   takeWhile,
   withLatestFrom,
 } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { FinishedMeasureModalComponent } from './finished-measure-modal/finished-measure-modal.component';
+import { MEASURE_PLACEHOLDER } from './measure-placeholder.const';
 
 @Injectable()
 export class MeasureService {
@@ -20,10 +26,10 @@ export class MeasureService {
   private measureUrl = `${inject(HUBS_URL)}/measure`;
   private dialog = inject(MatDialog);
   private hubConnection: HubConnection | null = null;
-  private measureSource = new BehaviorSubject<Measure | null>(null);
+  private measureSource = new BehaviorSubject<Measure>(MEASURE_PLACEHOLDER);
 
-  measure$: Observable<Measure | null> = this.measureSource.asObservable();
-  timer$ = this.initTimer();
+  measure$: Observable<Measure> = this.measureSource.asObservable();
+  timer$: Observable<number> = this.initTimer();
 
   start(): Promise<void> {
     this.hubConnection = new HubConnectionBuilder()
@@ -33,7 +39,6 @@ export class MeasureService {
       .build();
 
     this.hubConnection.on('ReceiveMeasureStarted', (measure: Measure) => {
-      this.initTimer();
       this.measureSource.next(measure);
     });
 
@@ -68,9 +73,9 @@ export class MeasureService {
     this.hubConnection!.invoke('UpdateMeasure', input);
   }
 
-  private initTimer(): Observable<number> {
+  private initTimer() {
     return interval(100).pipe(
-      withLatestFrom(this.measure$),
+      withLatestFrom(this.measure$.pipe(skip(1))),
       takeWhile(([_, measure]) => new Date() < new Date(measure!.endTime)),
       map(([_, measure]) => {
         const end = new Date(measure!.endTime).getTime();

@@ -10,7 +10,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewMeasureModalComponent } from './new-measure-modal/new-measure-modal.component';
 import { Router } from '@angular/router';
 import { MeasureOptions } from './models';
-import { delay, filter, first } from 'rxjs';
 import { TextTyperComponent } from './text-typer/text-typer.component';
 
 @Component({
@@ -31,7 +30,6 @@ export class MeasureComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.startMeasureService();
-    this.focusTextTyper();
   }
 
   ngOnDestroy(): void {
@@ -58,21 +56,10 @@ export class MeasureComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((measureOptions: MeasureOptions) => {
       if (measureOptions) {
         this.measureService.createMeasure(measureOptions);
+        this.textTyper.focus();
       } else {
         this.router.navigate(['/']);
       }
     });
-  }
-
-  private focusTextTyper(): void {
-    this.measure$
-      .pipe(
-        filter((m) => m != null),
-        first(),
-        delay(1)
-      )
-      .subscribe(() => {
-        this.textTyper.focus();
-      });
   }
 }

@@ -3,7 +3,7 @@
   <h1>Test your keyboard typing skills</h1>
 </div>
 
-<div class="logic-wrapper" *ngIf="measure$ | async as measure; else fallback">
+<div class="logic-wrapper" *ngIf="measure$ | async as measure">
   <div class="stats-container">
     <app-stats-rect
       [label]="'TIME'"
@@ -26,21 +26,5 @@
     (wordSubmitted)="onWordSubmitted($event)"
   ></app-text-typer>
 </div>
-
-<ng-template #fallback>
-  <div #fallback class="logic-wrapper">
-    <div class="stats-container">
-      <app-stats-rect [label]="'TIME'" [value]="'1:00'"></app-stats-rect>
-      <app-stats-rect [label]="'WPM'" [value]="'0'"></app-stats-rect>
-      <app-stats-rect [label]="'ACC'" [value]="'100%'"></app-stats-rect>
-    </div>
-
-    <app-text-typer
-      [pastWords]="[]"
-      [currentWord]="{ value: '', state: 0 }"
-      [futureWords]="[]"
-    ></app-text-typer>
-  </div>
-</ng-template>
 
 <button class="leave-btn">LEAVE NOW</button>
