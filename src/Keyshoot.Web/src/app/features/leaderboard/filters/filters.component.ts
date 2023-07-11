@@ -3,10 +3,14 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { FiltersFormGroup, LeaderboardQueryParams } from '../models';
+import { FiltersFormGroup, HighscoresQueryParams } from '../models';
+import { enumAsSelectOptions } from 'src/app/shared/utils';
+import { TextLanguage } from '../../measure/models';
+import { SelectOption } from 'src/app/shared/components/select/select-option.interface';
 
 @Component({
   selector: 'app-filters',
@@ -15,19 +19,23 @@ import { FiltersFormGroup, LeaderboardQueryParams } from '../models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersComponent {
-  @Input({ required: true }) set params(params: LeaderboardQueryParams) {
+  @Input({ required: true }) set params(params: HighscoresQueryParams) {
     this.form.patchValue(params);
   }
-  @Output() paramsChanges = new EventEmitter<LeaderboardQueryParams>();
+  @Output() paramsChanged = new EventEmitter<HighscoresQueryParams>();
 
+  languageOptions = enumAsSelectOptions(TextLanguage);
+  orderOptions: SelectOption[] = [
+    { value: 'ASC', displayValue: 'Ascending' },
+    { value: 'DESC', displayValue: 'Descending' },
+  ];
   form: FiltersFormGroup = new FormGroup({
     language: new FormControl(),
     player: new FormControl(),
     order: new FormControl(),
-    sort: new FormControl(),
   });
 
-  onSubmit() {
-    this.paramsChanges.emit(this.form.getRawValue())
+  onSearch() {
+    this.paramsChanged.emit(this.form.getRawValue());
   }
 }

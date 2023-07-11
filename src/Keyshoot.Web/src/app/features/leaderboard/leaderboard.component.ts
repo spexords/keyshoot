@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { LeaderboardQueryParams } from './models';
-import { LeaderboardService } from './leaderboard.service';
+import { HighscoresQueryParams } from './models';
+import { LeaderboardStateService } from './leaderboard-state.service';
 
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
   styleUrls: ['./leaderboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LeaderboardService],
+  providers: [LeaderboardStateService],
 })
 export class LeaderboardComponent {
-  private leaderboardService = inject(LeaderboardService);
+  private lsService = inject(LeaderboardStateService);
 
-  queryParams$ = this.leaderboardService.queryParams$;
-  highscores$ = this.leaderboardService.highscores$;
+  queryParams$ = this.lsService.queryParams$;
+  highscores$ = this.lsService.highscores$;
 
-  search(params: Partial<LeaderboardQueryParams>): void {
-    this.leaderboardService.search(params);
+  search(params: Partial<HighscoresQueryParams>): void {
+    this.lsService.search(params);
   }
 }

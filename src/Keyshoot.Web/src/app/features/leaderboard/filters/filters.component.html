@@ -1,29 +1,19 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <app-text-input
-      class="wide-input"
-      [formControl]="form.controls.language"
-      [label]="'Language'"
-    ></app-text-input>
-  </div>
-  <div class="form-group">
-    <app-text-input
-      class="wide-input"
-      [formControl]="form.controls.player"
-      [label]="'Player'"
-    ></app-text-input>
-  </div>
-  <div class="form-group">
-    <app-text-input
-      [formControl]="form.controls.order"
-      [label]="'Order'"
-    ></app-text-input>
-  </div>
-  <div class="form-group">
-    <app-text-input
-      [formControl]="form.controls.sort"
-      [label]="'Sort by'"
-    ></app-text-input>
-  </div>
+<form [formGroup]="form" (ngSubmit)="onSearch()">
+  <app-select
+    class="wide-input"
+    [formControl]="form.controls.language"
+    [options]="languageOptions"
+    [label]="'Language'"
+  ></app-select>
+  <app-text-input
+    class="wide-input"
+    [formControl]="form.controls.player"
+    [label]="'Player'"
+  ></app-text-input>
+  <app-select
+    [formControl]="form.controls.order"
+    [options]="orderOptions"
+    [label]="'Order'"
+  ></app-select>
   <button>Search</button>
 </form>

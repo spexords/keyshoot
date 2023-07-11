@@ -1,24 +1,28 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { API_URL } from 'src/app/core/tokens/api-url.token';
-import { Highscore, LeaderboardQueryParams } from './models';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Highscore, HighscoresQueryParams } from './models';
 import { Observable } from 'rxjs';
+import { TextLanguage } from '../measure/models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LeaderboardService {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private highscoresUrl = `${inject(API_URL)}/highscores`;
+  private readonly defaultQueryParams: HighscoresQueryParams = {
+    language: TextLanguage[TextLanguage.Polish],
+    player: '',
+    order: 'DESC',
+  };
+  private leaderboardUrl = `${inject(API_URL)}/leaderboard`;
   private http = inject(HttpClient);
 
-  queryParams$ = this.route.queryParams as Observable<LeaderboardQueryParams>;
-  highscores$ = this.http.get<Highscore[]>(this.highscoresUrl);
-
-  search(params: Partial<LeaderboardQueryParams>): void {
-    this.router.navigate(['.'], {
-      queryParams: params,
-      relativeTo: this.route,
-    });
+  getHighscores(
+    queryParams: Partial<HighscoresQueryParams>
+  ): Observable<Highscore[]> {
+    const mergedParams = {...this.defaultQueryParams,  ...queryParams};
+    let params = new HttpParams();
+    Object.entries(mergedParams).forEach(
+      ([key, value]) => (params = params.append(key, value))
+    );
+    return this.http.get<Highscore[]>(this.leaderboardUrl, { params });
   }
 }

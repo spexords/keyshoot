@@ -9,12 +9,7 @@
     </p>
 
     <div class="language-wrapper">
-      <label for="lang">Language:</label>
-      <select id="lang" [(ngModel)]="selectedValue">
-        <option [ngValue]="option.value" *ngFor="let option of options">
-          {{ option.displayValue }}
-        </option>
-      </select>
+      <app-select [label]="'Language:'" [options]="options" [formControl]="selectedOption" />
     </div>
   </div>
 

@@ -3,7 +3,7 @@
 <app-filters
   *ngIf="queryParams$ | async as params"
   [params]="params"
-  (paramsChanges)="search($event)"
+  (paramsChanged)="search($event)"
 ></app-filters>
 
 <app-board
