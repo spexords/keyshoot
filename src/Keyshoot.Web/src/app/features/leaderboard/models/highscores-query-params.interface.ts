@@ -1,5 +1,5 @@
 export interface HighscoresQueryParams {
-  language: string;
+  language: number;
   player?: string;
   order: string;
 }

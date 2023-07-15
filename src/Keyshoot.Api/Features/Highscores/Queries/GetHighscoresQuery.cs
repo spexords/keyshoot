@@ -6,7 +6,7 @@ namespace Keyshoot.Api.Features.Highscores.Queries;
 
 public class GetHighscoresQuery : IRequest<IEnumerable<HighscoreDto>>
 {
-    public string Language { get; set; } = default!;
+    public int Language { get; set; } = default!;
     public string? Player { get; set; } = default!;
     public string Order { get; set; } = default!;
 }

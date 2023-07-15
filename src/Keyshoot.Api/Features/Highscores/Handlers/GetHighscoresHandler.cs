@@ -27,7 +27,7 @@ public class GetHighscoresHandler : IRequestHandler<GetHighscoresQuery, IEnumera
         _logger.LogInformation("Fetching highscores from database");
          var queryableScores = _context.MeasureScores.AsQueryable();
 
-        var language = Enum.Parse<TextLanguage>(request.Language);
+        var language = (TextLanguage)request.Language;
         queryableScores = queryableScores.Where(score => score.Language == language);
 
         if(request.Player != null)

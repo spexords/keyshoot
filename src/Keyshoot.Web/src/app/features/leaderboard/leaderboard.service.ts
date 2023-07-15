@@ -7,18 +7,20 @@ import { TextLanguage } from '../measure/models';
 
 @Injectable({ providedIn: 'root' })
 export class LeaderboardService {
-  private readonly defaultQueryParams: HighscoresQueryParams = {
-    language: TextLanguage[TextLanguage.Polish],
-    player: '',
-    order: 'DESC',
-  };
   private leaderboardUrl = `${inject(API_URL)}/leaderboard`;
   private http = inject(HttpClient);
+  defaultQueryParams: Partial<HighscoresQueryParams> = {
+    language: TextLanguage.Polish,
+    order: 'DESC'
+  }
 
   getHighscores(
     queryParams: Partial<HighscoresQueryParams>
   ): Observable<Highscore[]> {
-    const mergedParams = {...this.defaultQueryParams,  ...queryParams};
+    const mergedParams = {
+      ...this.defaultQueryParams,
+      ...queryParams
+    };
     let params = new HttpParams();
     Object.entries(mergedParams).forEach(
       ([key, value]) => (params = params.append(key, value))

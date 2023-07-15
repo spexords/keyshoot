@@ -10,6 +10,7 @@ export class LeaderboardStateService {
   private route = inject(ActivatedRoute);
   private leaderboardService = inject(LeaderboardService);
 
+  defaultQueryParams = this.leaderboardService.defaultQueryParams;
   queryParams$ = this.route.queryParams as Observable<HighscoresQueryParams>;
   
   highscores$ = this.queryParams$.pipe(
@@ -18,11 +19,11 @@ export class LeaderboardStateService {
     )
   );
 
-  search(params: Partial<HighscoresQueryParams>): void {
-    console.log(params);
+  search(params: Partial<HighscoresQueryParams>, reload: boolean): void {
     this.router.navigate(['.'], {
       queryParams: params,
       relativeTo: this.route,
+      onSameUrlNavigation: reload ? 'reload' : undefined
     });
   }
 }

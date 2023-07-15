@@ -1,7 +1,7 @@
 import { FormControl, FormGroup } from "@angular/forms";
 
 export type FiltersFormGroup = FormGroup<{
-  language: FormControl<string>;
+  language: FormControl<number>;
   player: FormControl<string>;
   order: FormControl<string>;
 }>

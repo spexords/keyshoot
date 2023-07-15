@@ -1,5 +1,4 @@
-﻿
-using Keyshoot.Api.Features.BookTexts.Queries;
+﻿using Keyshoot.Api.Features.BookTexts.Queries;
 using Keyshoot.Core.Interfaces;
 using Keyshoot.Core.Settings;
 using Keyshoot.Infrastructure.Data;
