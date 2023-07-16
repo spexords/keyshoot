@@ -10,10 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Texts\Pan_Tadeusz-Adam_Mickiewicz-Polish.txt" />
     <None Remove="Texts\The_Great_Gatsby-Scott_Fitzgerald-English.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Texts\Pan_Tadeusz-Adam_Mickiewicz-Polish.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Texts\The_Great_Gatsby-Scott_Fitzgerald-English.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
