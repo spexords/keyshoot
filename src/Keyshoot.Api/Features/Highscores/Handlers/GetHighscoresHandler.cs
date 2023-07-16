@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Keyshoot.Api.Dtos;
+using Keyshoot.Api.Extensions;
 using Keyshoot.Api.Features.Highscores.Queries;
 using Keyshoot.Core.Entities;
 using Keyshoot.Infrastructure.Data;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Keyshoot.Api.Features.Highscores.Handlers;
 
-public class GetHighscoresHandler : IRequestHandler<GetHighscoresQuery, IEnumerable<HighscoreDto>>
+public class GetHighscoresHandler : IRequestHandler<GetHighscoresQuery, PagedResult<HighscoreDto>>
 {
     private const string DefaultOrder = "ASC";
     private readonly KeyshootContext _context;
@@ -22,7 +23,7 @@ public class GetHighscoresHandler : IRequestHandler<GetHighscoresQuery, IEnumera
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<HighscoreDto>> Handle(GetHighscoresQuery request, CancellationToken cancellationToken)
+    public async Task<PagedResult<HighscoreDto>> Handle(GetHighscoresQuery request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Fetching highscores from database");
          var queryableScores = _context.MeasureScores.AsQueryable();
@@ -50,10 +51,12 @@ public class GetHighscoresHandler : IRequestHandler<GetHighscoresQuery, IEnumera
                 .ThenByDescending(score => score.Date);
         }
 
-        var highscores = await queryableScores.ToListAsync(cancellationToken);
+        var pagedData = await queryableScores.GetPagedData<HighscoreDto, MeasureScore>(
+            _mapper, 
+            request.PageIndex, 
+            request.PageSize, 
+            cancellationToken);
 
-        var highscoresDtos = _mapper.Map<IEnumerable<HighscoreDto>>(highscores);
-
-        return highscoresDtos;
+        return pagedData;
     }
 }

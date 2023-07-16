@@ -2,13 +2,12 @@
 
 <app-filters
   *ngIf="queryParams$ | async as params"
-  [defaultQueryParams]="defaultQueryParams"
   [params]="params"
   (paramsChanged)="search($event)"
-  (paramsInitialized)="search($event, false)"
 ></app-filters>
 
 <app-board
-  *ngIf="highscores$ | async as highscores"
-  [highscores]="highscores"
+  *ngIf="pagedHighscores$ | async as pagedHighscores"
+  [pagedHighscores]="pagedHighscores"
+  (paginationChanged)="search($event)"
 ></app-board>

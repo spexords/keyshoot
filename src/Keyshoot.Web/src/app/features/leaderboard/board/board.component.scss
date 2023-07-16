@@ -14,10 +14,10 @@
   padding-right: 30px;
 }
 
-
 .fluid-table {
   width: 100%;
   max-height: 200px;
 }
 
-thead th { position: sticky; top: 0; }
+// TODO : Issue with virtual scrolling and sticky header
+// thead th { position: sticky; top: 0; }

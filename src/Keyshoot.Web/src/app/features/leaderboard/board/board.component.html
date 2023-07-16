@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *cdkVirtualFor="let score of highscores; let i = index">
+        <tr *cdkVirtualFor="let score of pagedHighscores.items; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ score.language }}</td>
           <td>{{ score.player }}</td>
@@ -26,8 +26,11 @@
 </cdk-virtual-scroll-viewport>
 
 <mat-paginator
-  [length]="50"
-  [pageSizeOptions]="[15, 30, 60, 100]"
+  [length]="pagedHighscores.totalCount"
+  [pageSizeOptions]="[10, 20, 50]"
+  [pageSize]="pagedHighscores.pageSize"
+  [pageIndex]="pagedHighscores.pageIndex"
+  (page)="onPaginationChange($event)"
   aria-label="Select page"
 >
 </mat-paginator>

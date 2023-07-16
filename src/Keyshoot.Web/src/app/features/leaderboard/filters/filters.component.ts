@@ -18,17 +18,11 @@ import { SelectOption } from 'src/app/shared/components/select/select-option.int
   styleUrls: ['./filters.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersComponent implements OnInit {
-  @Input({required: true}) defaultQueryParams!: Partial<HighscoresQueryParams>;
+export class FiltersComponent {
   @Input({ required: true }) set params(queryParams: HighscoresQueryParams) {
-    const params = {
-      ...this.defaultQueryParams,
-      ...queryParams
-    }
-    this.form.patchValue(params);
+    this.form.patchValue(queryParams);
   }
-  @Output() paramsInitialized = new EventEmitter<HighscoresQueryParams>();
-  @Output() paramsChanged = new EventEmitter<HighscoresQueryParams>();
+  @Output() paramsChanged = new EventEmitter<Partial<HighscoresQueryParams>>();
 
   languageOptions = enumAsSelectOptions(TextLanguage);
   orderOptions: SelectOption[] = [
@@ -41,15 +35,7 @@ export class FiltersComponent implements OnInit {
     order: new FormControl(),
   });
 
-  ngOnInit(): void {
-    this.onInitialized();
-  }
-
   onSearch(): void {
     this.paramsChanged.emit(this.form.getRawValue());
-  }
-
-  private onInitialized(): void {
-    this.paramsInitialized.emit(this.form.getRawValue())
   }
 }

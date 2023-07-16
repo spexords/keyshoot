@@ -12,11 +12,15 @@ import { LeaderboardStateService } from './leaderboard-state.service';
 export class LeaderboardComponent {
   private lsService = inject(LeaderboardStateService);
 
-  defaultQueryParams = this.lsService.defaultQueryParams;
   queryParams$ = this.lsService.queryParams$;
-  highscores$ = this.lsService.highscores$;
+  pagedHighscores$ = this.lsService.pagedHighscores$;
 
-  search(params: Partial<HighscoresQueryParams>, reload: boolean = true): void {
-    this.lsService.search(params, reload);
+  constructor() {
+    this.lsService.setDefaultQueryParamsIfEmpty();
+  }
+
+  search(params: Partial<HighscoresQueryParams>): void {
+    console.log(params);
+    this.lsService.search(params);
   }
 }

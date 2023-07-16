@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Highscore } from '../models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Highscore, HighscoresQueryParams, PagedResult } from '../models';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-board',
@@ -8,5 +9,15 @@ import { Highscore } from '../models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardComponent {
-  @Input({required: true}) highscores!: Highscore[];
+  @Input({required: true}) pagedHighscores!: PagedResult<Highscore>
+  @Output() paginationChanged = new EventEmitter<Partial<HighscoresQueryParams>>();
+  
+  pageSizeOptions = [10, 20, 50];
+
+  onPaginationChange(event: PageEvent): void {
+    this.paginationChanged.emit({
+      pageSize: event.pageSize,
+      pageIndex: event.pageIndex
+    })
+  }
 }

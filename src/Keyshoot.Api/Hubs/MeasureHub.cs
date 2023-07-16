@@ -45,7 +45,10 @@ public class MeasureHub : Hub<IMeasureHub>
 	{
 		var username = Context.User!.GetUsername();
         _logger.LogInformation("User: {0} left measure hub", username);
-		CancellationTokens[username].Cancel();
+		if(CancellationTokens.ContainsKey(username))
+		{
+			CancellationTokens[username].Cancel();
+		}
         return base.OnDisconnectedAsync(exception);
 	}
 
