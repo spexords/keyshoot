@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './core/errors/not-found/not-found.component';
 import { ForbiddenComponent } from './core/errors/forbidden/forbidden.component';
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './shared/guards';
 
 const routes: Routes = [
   {
@@ -38,7 +38,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Params } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({

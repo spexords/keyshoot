@@ -1,9 +1,13 @@
 <h2>Leaderboard</h2>
 
 <app-filters
-  *ngIf="queryParmas | async as params"
+  *ngIf="queryParams$ | async as params"
   [params]="params"
-  (paramsChanges)="paramsChange($event)"
+  (paramsChanged)="search($event)"
 ></app-filters>
 
-<app-board></app-board>
+<app-board
+  *ngIf="pagedHighscores$ | async as pagedHighscores"
+  [pagedHighscores]="pagedHighscores"
+  (paginationChanged)="search($event)"
+></app-board>

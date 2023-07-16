@@ -1,23 +1,26 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LeaderboardQueryParams } from './models';
+import { HighscoresQueryParams } from './models';
+import { LeaderboardStateService } from './leaderboard-state.service';
 
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
   styleUrls: ['./leaderboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [LeaderboardStateService],
 })
 export class LeaderboardComponent {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  queryParmas = this.route.queryParams as Observable<LeaderboardQueryParams>;
+  private lsService = inject(LeaderboardStateService);
 
-  paramsChange(params: Partial<LeaderboardQueryParams>): void {
-    this.router.navigate(['.'], {
-      queryParams: params,
-      relativeTo: this.route,
-    });
+  queryParams$ = this.lsService.queryParams$;
+  pagedHighscores$ = this.lsService.pagedHighscores$;
+
+  constructor() {
+    this.lsService.setDefaultQueryParamsIfEmpty();
+  }
+
+  search(params: Partial<HighscoresQueryParams>): void {
+    console.log(params);
+    this.lsService.search(params);
   }
 }

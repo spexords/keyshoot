@@ -1,4 +1,7 @@
-<div class="form-group">
-    <label *ngIf="label">{{label}}</label>
-    <input type="{{ type }}" [formControl]="control" placeholder="{{ label }}" class="form-control" />
-</div>
+<label *ngIf="label">{{ label }}</label>
+<input
+  type="{{ type }}"
+  [formControl]="control"
+  placeholder="{{ label }}"
+  class="form-control"
+/>

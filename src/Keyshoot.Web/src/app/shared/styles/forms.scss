@@ -1,16 +1,12 @@
 @import "colors";
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
 label {
+  display: block;
   font-family: "Roboto";
   font-size: 1.5rem;
 }
 
-input {
+input, select {
   font-family: "Roboto";
   padding: 0.5rem 1rem;
   border: 1px solid #a8a8a8;
@@ -53,12 +49,3 @@ table {
   }
 }
 
-select {
-  border: 1px solid black;
-  border-radius: 5px;
-  font-size: 1.5rem;
-  font-family: "Roboto";
-  padding: 0.2rem 0.5rem;
-
-  outline: none;
-}

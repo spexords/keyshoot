@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Highscore, HighscoresQueryParams, PagedResult } from '../models';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-board',
@@ -7,199 +9,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardComponent {
-  items = [
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    {
-      username: 'tomaszenkov',
-      wpm: 160,
-      acc: 55,
-      date: new Date(),
-    },
-    
-  ];
+  @Input({required: true}) pagedHighscores!: PagedResult<Highscore>
+  @Output() paginationChanged = new EventEmitter<Partial<HighscoresQueryParams>>();
+  
+  pageSizeOptions = [10, 20, 50];
+
+  onPaginationChange(event: PageEvent): void {
+    this.paginationChanged.emit({
+      pageSize: event.pageSize,
+      pageIndex: event.pageIndex
+    })
+  }
 }

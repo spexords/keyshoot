@@ -14,7 +14,6 @@ import { HUBS_URL } from './core/tokens/hub-url.token';
   providers: [
     {provide: API_URL, useValue: environment.apiUrl},
     {provide: HUBS_URL, useValue: environment.hubsUrl},
-
   ],
   bootstrap: [AppComponent],
 })
