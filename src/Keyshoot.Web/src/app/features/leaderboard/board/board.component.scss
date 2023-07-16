@@ -5,12 +5,9 @@
   overflow: hidden;
 }
 
-.scores-viewport {
+.table-wrapper {
   flex: 1;
   overflow-y: auto;
-}
-
-.table-wrapper {
   padding-right: 30px;
 }
 
@@ -19,5 +16,4 @@
   max-height: 200px;
 }
 
-// TODO : Issue with virtual scrolling and sticky header
-// thead th { position: sticky; top: 0; }
+thead th { position: sticky; top: 0; }

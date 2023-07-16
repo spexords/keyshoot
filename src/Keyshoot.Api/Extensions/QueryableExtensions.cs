@@ -12,7 +12,7 @@ public class PagedResult<T>
     public int PageSize { get; set; }
 }
 
-public static class DbContextExtensions
+public static class QueryableExtensions
 {
     public static async Task<PagedResult<TDestination>> GetPagedData<TDestination, TSource>(
         this IQueryable<TSource> query,
